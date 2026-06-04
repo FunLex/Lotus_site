@@ -1,0 +1,363 @@
+/* ========== ОБЩИЕ СТИЛИ (исходные, перенесённые из HTML) ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(245, 245, 245);
+    padding: 20px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #003399;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+hr {
+    margin: 20px 0;
+    border: 1px solid #004225;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #004225;
+    font-size: 0.9em;
+    color: #2c5e2e;
+}
+
+h1 {
+    color: #004225;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    background: #111;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+/* Стили для ссылок меню */
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #FFB81C;
+}
+
+/* Стили для index.html */
+.welcome {
+    background: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 5px solid #FFB81C;
+}
+
+/* Стили для catalog.html */
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.card {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 15px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s, border 0.2s;
+    border: 2px solid transparent;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #FFB81C;
+}
+
+.card img {
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #004225;
+    transition: color 0.3s;
+}
+
+.card a:hover {
+    color: #FFB81C;
+    text-decoration: underline;
+}
+
+/* Стили для страниц автомобиля */
+.car-image {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.car-image a img {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+    max-width: 100%;
+    height: auto;
+}
+
+.car-image a img:hover {
+    transform: scale(1.02);
+}
+
+.specs {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 5px solid #FFB81C;
+}
+
+.specs ul {
+    margin-left: 25px;
+    margin-top: 10px;
+}
+
+.specs li {
+    margin: 8px 0;
+}
+
+/* ========== НОВЫЕ СТИЛИ ========== */
+
+/* Заголовки разделов автомобиля (Краткое описание, Характеристики, Подробное описание) */
+.section-title {
+    color: #000000 !important;        /* чёрный цвет текста */
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    background-color: rgb(230, 240, 250); /* светло-голубой фон в RGB */
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* Краткое описание автомобиля */
+.short-description {
+    color: rgb(70, 70, 70);           /* тёмно-серый RGB */
+    font-size: 14px;
+    font-style: italic;
+    line-height: 16px;
+    margin-bottom: 20px;
+}
+
+/* Подробное описание автомобиля */
+.full-description {
+    color: rgb(50, 50, 80);           /* синевато-серый RGB */
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+/* Список характеристик – свои маркеры и стиль */
+.specs-list {
+    list-style-image: url("images/star.jpg");
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    color: #2c3e50;
+    background-color: #fef9e6;
+    padding: 10px 10px 10px 30px;
+    border-radius: 8px;
+}
+
+.specs-list li {
+    margin: 12px 0;
+    padding-left: 5px;
+}
+
+/* ===== НОВЫЕ СТИЛИ ДЛЯ ФИЛЬТРА И КОРЗИНЫ ===== */
+
+.filter-panel {
+    background: #f0f2f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+.filter-panel h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #004225;
+}
+.filter-panel label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+}
+.filter-panel input {
+    width: 100px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.filter-panel button {
+    background: #004225;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.filter-panel button:hover {
+    background: #FFB81C;
+    color: #111;
+}
+
+/* Карточка автомобиля */
+.card {
+    position: relative;
+}
+.price {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #b12704;
+    margin: 8px 0;
+}
+.add-to-cart {
+    background: #004225;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+.add-to-cart:hover {
+    background: #FFB81C;
+    color: #000;
+}
+    
+/* Блок корзины */
+.cart {
+    margin-top: 40px;
+    background: #fff8e7;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid #e0d5b5;
+}
+.cart h2 {
+    margin-top: 0;
+    color: #004225;
+}
+.cart-items {
+    min-height: 60px;
+    margin-bottom: 15px;
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid #FFB81C;
+}
+.cart-item-info {
+    flex-grow: 1;
+}
+.cart-item-price {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.remove-item {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.remove-item:hover {
+    background: #a71d2a;
+}
+.cart-total {
+    font-size: 1.3rem;
+    text-align: right;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+.cart-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 15px;
+}
+.cart-buttons button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+#clearCartBtn {
+    background: #6c757d;
+    color: white;
+}
+#clearCartBtn:hover {
+    background: #5a6268;
+}
+#checkoutBtn {
+    background: #28a745;
+    color: white;
+}
+#checkoutBtn:hover {
+    background: #218838;
+}

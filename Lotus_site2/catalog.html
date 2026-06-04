@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог | Lotus ДВС</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Каталог моделей</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+
+    <!-- БЛОК ФИЛЬТРАЦИИ (по цене) -->
+    <div class="filter-panel">
+        <h3>Фильтр по цене</h3>
+        <label>от <input type="number" id="minPrice" placeholder="0" value="0"></label>
+        <label>до <input type="number" id="maxPrice" placeholder="200000" value="200000"></label>
+        <button id="applyFilterBtn">Применить фильтр</button>
+        <button id="resetFilterBtn">Сбросить</button>
+    </div>
+
+    <!-- КАТАЛОГ (карточки с data-атрибутами) -->
+    <div class="catalog" id="catalogContainer">
+        <!-- Emira -->
+        <div class="card" data-id="1" data-name="Lotus Emira" data-price="85000">
+            <img src="images/emira_small.jpg" alt="Lotus Emira">
+            <a href="emira.html">Lotus Emira ➜</a>
+            <div class="price">$85 000</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+        <!-- Evora -->
+        <div class="card" data-id="2" data-name="Lotus Evora" data-price="75000">
+            <img src="images/evora_small.jpg" alt="Lotus Evora">
+            <a href="evora.html">Lotus Evora ➜</a>
+            <div class="price">$75 000</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+        <!-- Exige -->
+        <div class="card" data-id="3" data-name="Lotus Exige" data-price="95000">
+            <img src="images/exige_small.jpg" alt="Lotus Exige">
+            <a href="exige.html">Lotus Exige ➜</a>
+            <div class="price">$95 000</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+        <!-- Elise -->
+        <div class="card" data-id="4" data-name="Lotus Elise" data-price="55000">
+            <img src="images/elise_small.jpg" alt="Lotus Elise">
+            <a href="elise.html">Lotus Elise ➜</a>
+            <div class="price">$55 000</div>
+            <button class="add-to-cart">В корзину</button>
+        </div>
+    </div>
+
+    <!-- БЛОК КОРЗИНЫ -->
+    <div class="cart">
+        <h2>Корзина</h2>
+        <div id="cartItemsList" class="cart-items">
+            <p>Корзина пуста</p>
+        </div>
+        <div class="cart-total">
+            <strong>Итого: </strong><span id="cartTotal">$0</span>
+        </div>
+        <div class="cart-buttons">
+            <button id="clearCartBtn">Очистить корзину</button>
+            <button id="checkoutBtn">Оплатить</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Все права защищены.</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
