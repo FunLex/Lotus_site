@@ -1,5 +1,4 @@
 // Глобальный массив автомобилей (id, название, цена)
-// Используется для синхронизации и фильтрации
 const productsData = [
     { id: 1, name: "Lotus Emira", price: 85000 },
     { id: 2, name: "Lotus Evora", price: 75000 },
@@ -10,7 +9,21 @@ const productsData = [
 // Массив корзины (хранит объекты { id, name, price })
 let cart = [];
 
-// Функция перерисовки корзины (стрелочная)
+// Сохранение корзины в localStorage
+function saveCartToLocalStorage() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// Загрузка корзины из localStorage при инициализации
+function loadCartFromLocalStorage() {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        renderCart(); // отображаем восстановленную корзину
+    }
+}
+
+// ---------- ОТРИСОВКА КОРЗИНЫ ----------
 const renderCart = () => {
     const cartContainer = document.getElementById("cartItemsList");
     const totalSpan = document.getElementById("cartTotal");
@@ -21,7 +34,6 @@ const renderCart = () => {
         return;
     }
 
-    // Отрисовка каждого автомобиля с кнопкой удаления
     let html = "";
     let total = 0;
     cart.forEach((item, index) => {
@@ -39,7 +51,7 @@ const renderCart = () => {
     cartContainer.innerHTML = html;
     totalSpan.textContent = `$${total.toLocaleString()}`;
 
-    // Навесить обработчики удаления на каждую кнопку (стрелочные функции)
+    // Навесить обработчики удаления
     document.querySelectorAll(".remove-item").forEach(btn => {
         btn.addEventListener("click", (e) => {
             const idx = parseInt(btn.dataset.index);
@@ -48,24 +60,24 @@ const renderCart = () => {
     });
 };
 
-// --- Удаление автомобиля по индексу ---
+// ---------- ОПЕРАЦИИ С КОРЗИНОЙ (с сохранением) ----------
 const removeFromCart = (index) => {
     if (index >= 0 && index < cart.length) {
         const removed = cart[index];
         cart.splice(index, 1);
         renderCart();
+        saveCartToLocalStorage();
         alert(`${removed.name} удалён из корзины`);
     }
 };
 
-// --- Добавление автомобиля в корзину ---
 const addToCart = (product) => {
-    cart.push({ ...product }); // создаём копию объекта
+    cart.push({ ...product });
     renderCart();
+    saveCartToLocalStorage();
     alert(`${product.name} добавлен в корзину`);
 };
 
-// --- Очистка всей корзины ---
 const clearCart = () => {
     if (cart.length === 0) {
         alert("Корзина уже пуста");
@@ -73,10 +85,10 @@ const clearCart = () => {
     }
     cart = [];
     renderCart();
+    saveCartToLocalStorage();          // сохраняем очистку
     alert("Корзина очищена");
 };
 
-// --- Оформление заказа (оплата) ---
 const checkout = () => {
     if (cart.length === 0) {
         alert("Корзина пуста! Добавьте хотя бы один автомобиль.");
@@ -84,26 +96,21 @@ const checkout = () => {
         alert("Покупка прошла успешно! Спасибо за заказ.");
         cart = [];
         renderCart();
+        saveCartToLocalStorage();      // сохраняем пустую корзину
     }
 };
 
-// --- Функция фильтрации автомобилей (по цене) ---
+// ---------- ФИЛЬТРАЦИЯ (без изменений) ----------
 const filterProducts = () => {
     const min = parseFloat(document.getElementById("minPrice").value) || 0;
     const max = parseFloat(document.getElementById("maxPrice").value) || Infinity;
-
     const cards = document.querySelectorAll(".card");
     cards.forEach(card => {
         const price = parseFloat(card.dataset.price);
-        if (price >= min && price <= max) {
-            card.style.display = "";      // показать
-        } else {
-            card.style.display = "none";  // скрыть
-        }
+        card.style.display = (price >= min && price <= max) ? "" : "none";
     });
 };
 
-// --- Сброс фильтра (показать все автомобили) ---
 const resetFilter = () => {
     document.getElementById("minPrice").value = 0;
     document.getElementById("maxPrice").value = 200000;
@@ -111,13 +118,16 @@ const resetFilter = () => {
     cards.forEach(card => card.style.display = "");
 };
 
-// --- Инициализация страницы (загрузка DOM) ---
+// ---------- ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ----------
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Навесить обработчики на кнопки "В корзину"
+    // 1. Восстанавливаем корзину из localStorage (если есть)
+    loadCartFromLocalStorage();
+
+    // 2. Навесить обработчики на кнопки "В корзину"
     const addButtons = document.querySelectorAll(".add-to-cart");
     addButtons.forEach(btn => {
         btn.addEventListener("click", (event) => {
-            event.stopPropagation();   // чтобы случайно не перейти по ссылке
+            event.stopPropagation();
             const card = btn.closest(".card");
             const id = parseInt(card.dataset.id);
             const name = card.dataset.name;
@@ -126,15 +136,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. Кнопка "Очистить корзину"
+    // 3. Кнопка "Очистить корзину"
     document.getElementById("clearCartBtn").addEventListener("click", clearCart);
 
-    // 3. Кнопка "Оплатить"
+    // 4. Кнопка "Оплатить"
     document.getElementById("checkoutBtn").addEventListener("click", checkout);
 
-    // 4. Фильтрация
+    // 5. Фильтрация
     document.getElementById("applyFilterBtn").addEventListener("click", filterProducts);
     document.getElementById("resetFilterBtn").addEventListener("click", resetFilter);
 
-    renderCart();
+    // 6. Если корзина не была восстановлена (например, localStorage пуст) – отображаем пустую
+    if (cart.length === 0) {
+        renderCart();
+    }
 });
